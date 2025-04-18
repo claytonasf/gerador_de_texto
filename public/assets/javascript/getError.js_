@@ -1,0 +1,100 @@
+ 
+
+ function getError()
+ {
+    $('.list-error').html('');
+    $('.countError #count').html('');
+
+   fetch('http://localhost/chatgpt/errorText',{
+        method: 'GET'
+     })
+     .then(response => response.json() )
+     .then(
+        
+        function(data){
+
+            if(data.length >0){
+                $('.countError #count').html(data.length);
+                var  cleanBtn = ""; 
+
+              }else{
+                $('.countError #count').html('0');
+                var  cleanBtn = "disabled"; 
+                $('.list-error').append('<h6 class="text-center"> Sem erros </h6>');
+
+              }
+            data.map(function(item){     
+               
+               
+               $('.list-error').append('<div class="container-error" data-key="'+item['id']+'"> <p class="errorTitle"> Palavra Chave: '+item['keyword']+'</p> <p class="errorSubTitle">Empresa: '+item['company']+'</p> <p class="errorDescription">'+item['error']+'</p> </div> <hr>')
+
+            }) 
+
+               $('.footer-list-error').html('<button  type="button" onclick="deleteError()" class="btn w-100 reset-error btn-outline-success" '+ cleanBtn +'> Limpar erros </button>')
+
+          })
+   
+          
+ }
+
+ getError();
+
+ 
+
+ function countError(){
+
+    fetch('http://localhost/chatgpt/errorText',{
+        method: 'GET'
+     })
+     .then(response => response.json() )
+
+     .then( function(data){ 
+         
+            if(data.length >0){
+                $('.countError #count').html(data.length);
+
+            }else{
+                $('.countError #count').html('0');
+
+            }
+       })
+
+      setTimeout(countError, 5000);
+        
+ }
+
+ countError();
+
+
+
+
+   function deleteError()
+   { 
+           const resposta  = confirm("Você tem certeza que deseja limpar os erros?");
+
+           if(resposta ){
+
+                fetch('http://localhost/chatgpt/errorText',{
+                    method: 'POST'
+                })
+                .then(response =>response.json())
+                .then(function(response){
+                  
+              
+
+                    if(response == "true"){
+                        $('.list-error').html('');
+                         getError();
+                    }
+                })
+
+              
+
+           }
+
+          
+                   
+      
+   }
+
+   
