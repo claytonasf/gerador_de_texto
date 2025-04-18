@@ -76,7 +76,7 @@ CREATE TABLE `user` (
 --
 
 INSERT INTO `user` (`email`, `name`, `password`, `id`) VALUES
-('clayton.francelino@buscacliente.com.br', 'Teste', '$2y$10$IZ4XGXctHWTeJW/jsMeQe.n..tdb.rrelMIzEa7tEzc4rEkQAqbqa', 3);
+('adim@admin', 'admin', '$2y$10$2AW3SFcmBj5tanRjGaZvaOkGnyXtBtAD4xdl0jh3RB19ycfuTALWO', 3);
 
 --
 -- Índices para tabelas despejadas
